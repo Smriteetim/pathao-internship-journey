@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smritee at Pathao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;700&display=swap">
+<style>
+/* VOICE occasion: a cinematic, scroll-driven telling of a 3-month internship, warm and personal
+   IDEA a night ride on a Pathao bike through Kathmandu; each scroll is the next stop on the route
+   PICTURE a living Kathmandu night: Himalaya, stupa, pagodas, detailed houses, blinking windows, a rider; the camera flies into the helmet
+   COLOUR near-black ground #0e0b0d, lime #c1121f accent, warm white #f6eee6, deep olive support #2a0a0d
+   TYPE Unbounded (display) + Manrope (text)
+   LAYOUT pinned scenes and a sideways spotlight on laptops; stacked sections with light reveals on phones */
+:root{color-scheme:dark;--bg:#0b0a0a;--ink:#f5f2ef;--soft:#bdb7b3;--acc:#c1121f;--deep:#2a0a0d;--line:#272424;--card:#151313}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 Manrope,system-ui,sans-serif;overflow-x:clip}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:Unbounded,Arial Black,sans-serif;line-height:1.18;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font-size:clamp(22px,2.3vw,32px);font-weight:600;max-width:24ch}
+h3{font-size:15.5px;font-weight:600;letter-spacing:0;line-height:1.35}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(5vw,16px)}
+.band{padding:clamp(96px,12vw,170px) 0;position:relative}
+.lede{font-size:clamp(15.5px,1.15vw,17px);color:var(--soft);max-width:56ch;margin-top:20px}
+.kick{color:var(--soft);font-weight:600;font-size:13px;letter-spacing:.02em;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.kick::before{content:"";width:28px;height:2px;background:currentColor}
+.wd{display:inline-block;vertical-align:top}
+.wd>span{display:inline-block}
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px max(4vw,16px);background:linear-gradient(#0e0b0df0,#0e0b0d00)}
+.nav b{font-family:Unbounded,sans-serif;font-size:14px;font-weight:700;white-space:nowrap}
+.nav b i{font-style:normal;color:var(--acc)}
+.nav nav{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.nav nav a{position:relative;text-decoration:none;font-size:14px;padding:10px 12px;border-radius:30px;color:var(--soft);transition:color .3s,background .3s}
+.nav nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:5px;height:2px;background:var(--acc);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s}
+.nav nav a:hover,.nav nav a:focus-visible{color:var(--ink);outline:none;background:#ffffff10}
+.nav nav a.on{color:var(--ink);background:#c1121f2e}
+.nav nav a.on::after{transform:scaleX(1)}
+.loader{position:fixed;inset:0;z-index:100;background:#0a0a0a;display:grid;place-items:center;text-align:center}
+.loader .lt{font-size:14px;color:var(--soft);letter-spacing:.04em}
+.loader .ln{font-family:Unbounded,sans-serif;font-weight:500;font-size:clamp(40px,6vw,72px);margin-top:6px;font-variant-numeric:tabular-nums}
+.loader .lb{width:200px;height:2px;background:#ffffff1f;margin:22px auto 0}
+.loader .lb i{display:block;height:100%;background:var(--acc);transform:scaleX(0);transform-origin:0 50%}
+.nojs .loader{display:none}
+.bar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--acc);transform-origin:0 50%;transform:scaleX(0);z-index:60}
+/* hero */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:#0f0c0e}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}
+.cam{position:absolute;inset:0 0 6vh 0;will-change:filter,transform}
+.hero .title{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 60% 45% at 50% 48%,#000000a8,transparent 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px;pointer-events:none}
+.hero h1{font-size:clamp(40px,9.5vw,150px);font-weight:600;line-height:1.02;letter-spacing:-.03em;will-change:transform;text-shadow:0 10px 60px #000c}
+.hero h1 .ln{display:block}
+.hero h1 .ch{display:inline-block}
+.hero h1 .r{color:var(--acc)}
+.hero .meta{margin-top:28px;font-size:clamp(13px,1vw,15px);color:#e4dfdb;text-shadow:0 2px 12px #000;line-height:1.85}
+.lbx{position:absolute;left:0;right:0;height:6vh;background:#000;z-index:6;transform:scaleY(0)}
+.lbx.t{top:0;transform-origin:50% 0}.lbx.b{bottom:0;transform-origin:50% 100%}
+.vig{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse at 50% 55%,transparent 45%,#000000b3 100%)}
+.grain{position:absolute;inset:-60%;z-index:5;pointer-events:none;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .9s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-6%,4%)}40%{transform:translate(5%,-3%)}60%{transform:translate(-3%,-6%)}80%{transform:translate(4%,5%)}100%{transform:translate(0,0)}}
+.flare{position:absolute;left:58%;top:78%;width:70vw;height:70vw;margin:-35vw 0 0 -35vw;border-radius:50%;z-index:4;pointer-events:none;opacity:0;mix-blend-mode:screen;background:radial-gradient(circle,#fff6e0 0%,#ffd9a0aa 8%,#ffb86b33 25%,transparent 55%)}
+.streak{position:absolute;left:0;right:0;top:78%;height:3px;margin-top:-1px;z-index:4;opacity:0;pointer-events:none;mix-blend-mode:screen;background:linear-gradient(90deg,transparent,#ffe6c0 50%,transparent)}
+.hero .meta strong{color:var(--ink)}
+.hint{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(6vh + 18px);font-size:13px;color:var(--soft);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px}
+.hint i{width:22px;height:34px;border:2px solid var(--soft);border-radius:12px;position:relative}
+.hint i::after{content:"";position:absolute;left:50%;top:6px;width:4px;height:7px;margin-left:-2px;border-radius:2px;background:var(--acc);animation:wheel 1.6s ease-in-out infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(12px);opacity:0}}
+.redout{position:absolute;inset:0;background:var(--acc);opacity:0;z-index:7;pointer-events:none}
+/* living city */
+.bl{animation:blink var(--d,3s) ease-in-out var(--dl,0s) infinite}
+@keyframes blink{0%,100%{opacity:.95}45%{opacity:.95}50%{opacity:.15}62%{opacity:.9}}
+.tw{animation:tw var(--d,3s) ease-in-out var(--dl,0s) infinite}
+@keyframes tw{0%,100%{opacity:.2}50%{opacity:1}}
+.glow{animation:bloom 4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes bloom{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+.sign{animation:sign 5s steps(1) var(--dl,0s) infinite}
+@keyframes sign{0%,100%{opacity:1}91%{opacity:1}92%{opacity:.2}94%{opacity:1}96%{opacity:.3}97%{opacity:1}}
+.lamp{animation:lamp 3s ease-in-out var(--dl,0s) infinite}
+@keyframes lamp{0%,100%{opacity:.5}50%{opacity:.85}}
+.flags{transform-box:fill-box;transform-origin:0 0;animation:sway 3.5s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(0)}50%{transform:rotate(2deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin .5s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bob{animation:bob .35s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-3px)}}
+.beam{animation:beam 2.2s ease-in-out infinite}
+@keyframes beam{0%,100%{opacity:.9}40%{opacity:.65}43%{opacity:1}70%{opacity:.75}}
+.puff{transform-box:fill-box;transform-origin:center;animation:puff 1.2s ease-out var(--dl,0s) infinite}
+@keyframes puff{0%{opacity:.5;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(-60px,-20px) scale(1.6)}}
+.birds{animation:fly 26s linear infinite}
+@keyframes fly{from{transform:translateX(-200px)}to{transform:translateX(1800px)}}
+.flap{transform-box:fill-box;transform-origin:center;animation:flap .5s ease-in-out infinite alternate}
+@keyframes flap{to{transform:scaleY(.4)}}
+.roadln{animation:road .6s linear infinite}
+@keyframes road{to{stroke-dashoffset:-110}}
+/* about */
+.about{background:#100e0f;color:var(--ink);overflow:hidden}
+.about .lede{color:var(--soft)}
+.atop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:72px;align-items:center}
+.big{font-family:Unbounded,sans-serif;font-weight:600;font-size:clamp(26px,2.8vw,38px);line-height:1.05;letter-spacing:-.02em}
+.statline{display:flex;align-items:flex-end;gap:18px;margin-top:32px;flex-wrap:wrap}
+.statline p:last-child{max-width:30ch;color:var(--soft);font-size:15px}
+.road{position:relative;margin-top:80px}
+.track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;position:relative;padding-top:104px}
+.track::before{content:"";position:absolute;left:0;right:0;top:82px;height:2px;background:#ffffff26}
+.fill{position:absolute;left:0;top:82px;height:2px;width:100%;background:var(--acc);transform-origin:0 50%}
+.stop{position:relative;opacity:.6;transition:opacity .4s,transform .4s}
+.stop .pin{position:absolute;top:-29px;left:0;width:16px;height:16px;border-radius:50%;background:#100e0f;border:2px solid #ffffff55;transition:all .4s}
+.stop strong{display:block;font-family:Unbounded,sans-serif;font-size:clamp(18px,1.7vw,24px);font-weight:600;line-height:1;transition:color .4s}
+.stop p{margin-top:10px;color:var(--soft);font-size:14px;line-height:1.55}
+.stop.on{opacity:1;transform:translateY(-4px)}
+.stop.on .pin{background:var(--acc);border-color:var(--acc);transform:scale(1.35);box-shadow:0 0 0 7px #c1121f33}
+.stop.on strong{color:var(--acc)}
+.mbike{position:absolute;top:0;left:0;width:120px;height:80px;will-change:transform}
+.photo{border-radius:22px;overflow:hidden;position:relative;box-shadow:0 30px 60px #00000055}
+.photo img{width:100%;height:100%;object-fit:cover}
+.cap{font-size:13px;color:var(--soft);margin-top:10px}
+
+/* marquee */
+.marq{overflow:hidden;border-block:1px solid var(--line);padding:18px 0;background:#110e10}
+.marq .in{display:flex;width:max-content}
+.marq span{font-family:Unbounded,sans-serif;font-weight:500;font-size:clamp(16px,1.7vw,22px);white-space:nowrap;padding-right:40px;color:#312e30}
+.marq span b{color:var(--acc);font-weight:700}
+/* overview */
+.ovgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:88px;align-items:start;margin-top:56px}
+.facts{border-top:1px solid var(--line);margin:0}
+.facts div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.facts dt{color:var(--soft);font-size:15px}
+.facts dd{margin:0;font-weight:500}
+.stackph{position:relative;aspect-ratio:3/4}
+.stackph .photo{position:absolute}
+.stackph .a{inset:0 18% 12% 0}
+.stackph .b{inset:42% 0 0 46%;border:4px solid var(--bg)}
+.tagdot{position:absolute;z-index:2;left:-14px;top:14%;background:var(--acc);color:#fff;font-size:13px;font-weight:700;padding:8px 14px;border-radius:30px;box-shadow:0 10px 30px #0008}
+/* work */
+.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;margin-top:56px}
+.cw{perspective:900px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px 22px;min-height:270px;height:100%;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden;transform-style:preserve-3d;transition:border-color .3s}
+.card:hover{border-color:#c1121f99}
+.card::after{content:"";position:absolute;inset:auto -40% -60% auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(#c1121f55,transparent 70%);transition:transform .6s;transform:scale(.6)}
+.card:hover::after{transform:scale(1.4)}
+.card .ic{width:46px;height:46px;border-radius:14px;background:var(--deep);display:grid;place-items:center}
+.card .ic svg{width:26px;height:26px;stroke:var(--acc);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card .ic svg *{stroke-dasharray:80;stroke-dashoffset:0}
+.card:hover .ic svg *{animation:draw 1s ease}
+@keyframes draw{from{stroke-dashoffset:80}}
+.card p{color:var(--soft);font-size:14.5px;line-height:1.7}
+.card .ic{animation:float 3.2s ease-in-out var(--dl,0s) infinite}
+@keyframes float{50%{transform:translateY(-5px)}}
+.card .bar2{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--acc);transform:scaleX(0);transform-origin:0 50%}
+.card::before{content:"";position:absolute;inset:-1px;border-radius:22px;padding:1px;background:conic-gradient(from var(--ang,0deg),transparent 0 70%,var(--acc) 85%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
+.card:hover::before{opacity:1;animation:ang 2.4s linear infinite}
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes ang{to{--ang:360deg}}
+.card .n{font-family:Unbounded,sans-serif;font-size:13px;color:#545153;margin-top:auto}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:80px}
+.stat{border-top:3px solid var(--acc);padding-top:16px}
+.stat .big{white-space:nowrap}
+.stat p{color:var(--soft);margin-top:12px;font-size:14.5px}
+/* spotlight */
+.spot{background:linear-gradient(#0e0b0d,#161315 45%,#0e0b0d);overflow:hidden}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.steps{display:flex;gap:8px}
+.steps button{font:700 14px Manrope,sans-serif;color:var(--soft);background:#ffffff0d;border:1px solid var(--line);border-radius:30px;padding:10px 16px;min-height:44px;cursor:pointer;transition:all .3s}
+.steps button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.prog{height:3px;background:var(--line);border-radius:3px;margin-top:22px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--acc);transform:scaleX(0);transform-origin:0 50%}
+.hwrap{margin-top:40px}
+.htrack{display:flex;gap:32px}
+.panel{flex:none;width:min(1020px,80vw);min-height:460px;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:clamp(24px,3vw,44px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;align-items:center;position:relative;overflow:hidden}
+.panel .lab{font-family:Unbounded,sans-serif;font-size:14px;color:var(--acc);font-weight:700;margin-bottom:14px}
+.panel h3{font-size:clamp(18px,1.7vw,24px);line-height:1.3}
+.panel .tx{color:var(--soft);margin-top:14px}
+.roles{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
+.roles li{display:flex;gap:14px;align-items:flex-start;color:var(--soft)}
+.roles li svg{flex:none;width:40px;height:40px;padding:8px;border-radius:12px;background:var(--deep);stroke:var(--acc);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.res{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+.res .big{font-size:clamp(20px,2vw,28px);white-space:nowrap}
+.res p{color:var(--soft);font-size:13.5px;margin-top:6px}
+.shots{position:relative;height:380px}
+.shot{position:absolute;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 70px #000a}
+.shot img{width:100%}
+.shot.s1{left:0;top:10px;width:92%;transform:rotate(-3deg)}
+.shot.s2{right:0;bottom:0;width:70%;transform:rotate(3deg)}
+.mg{width:100%;height:auto;max-height:380px}
+.coin{animation:coin 2.4s ease-in var(--dl,0s) infinite}
+@keyframes coin{0%{transform:translateY(-60px);opacity:0}15%{opacity:1}80%{opacity:1}100%{transform:translateY(150px);opacity:0}}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.ring{transform-box:fill-box;transform-origin:center;animation:ring 2s ease-out infinite}
+@keyframes ring{from{transform:scale(.6);opacity:.8}to{transform:scale(1.6);opacity:0}}
+/* learn */
+.lgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:56px}
+.quote{font-family:Unbounded,sans-serif;font-weight:500;font-size:clamp(22px,2.7vw,36px);line-height:1.35;max-width:26ch;letter-spacing:-.02em;margin-top:clamp(64px,9vw,110px)}
+.quote .w{display:inline-block;margin-right:.24em}
+.qsub{font-size:clamp(15.5px,1.3vw,18px);color:var(--soft);margin-top:20px;max-width:46ch}
+/* honest */
+.hgrid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px;margin-top:56px}
+.pan{border-radius:24px;padding:40px 36px;position:relative;overflow:hidden}
+.pan h3{margin-bottom:16px;font-size:17px}
+.pan ul{margin:0;padding-left:20px}
+.pan li{margin:8px 0}
+.good{background:var(--card);border:1px solid var(--line)}
+.better{background:var(--deep)}
+.better li{color:#dfe8d6}
+.pan svg.deco{position:absolute;right:18px;top:18px;width:54px;height:54px}
+/* challenges */
+.clist{margin-top:36px;border-top:1px solid var(--line)}
+.crow{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,1.2fr);gap:32px;padding:32px 0;border-bottom:1px solid var(--line);align-items:center}
+.crow svg{width:48px;height:48px;stroke:var(--acc);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.crow h3{font-size:clamp(15px,1.3vw,18px)}
+.crow p{color:var(--soft)}
+/* bbis */
+.links{margin-top:56px;display:flex;flex-direction:column;gap:16px}
+.lk{display:grid;grid-template-columns:minmax(0,1fr) 90px minmax(0,1.2fr);align-items:center;gap:12px}
+.lk .k{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 20px;font-weight:700}
+.lk .a{height:3px;background:var(--acc);position:relative;transform-origin:0 50%}
+.lk .a::after{content:"";position:absolute;right:-2px;top:-6px;border:7px solid transparent;border-left:10px solid var(--acc);border-right:0}
+.lk .v{padding:16px 4px;color:var(--soft)}
+/* achieve */
+.agrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:88px;margin-top:56px;align-items:center}
+.alist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.alist li{padding:18px 0;border-bottom:1px solid var(--line);color:var(--soft);display:flex;gap:12px}
+.alist li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--acc);margin-top:10px}
+.alist b{color:var(--ink)}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pills span{border:1px solid var(--acc);color:var(--ink);border-radius:30px;padding:9px 16px;font-size:15px}
+.phone{width:min(290px,78vw);margin:0 auto;aspect-ratio:9/18.5;border-radius:40px;border:10px solid #1f1c1e;background:#000;overflow:hidden;box-shadow:0 40px 80px #000c,0 0 0 2px #312e30}
+.phone img{width:100%;height:100%;object-fit:cover}
+/* thanks */
+.flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:40}
+.thanks{min-height:100svh;display:flex;align-items:center;background:radial-gradient(circle at 75% 40%,#2a0a0d,#0e0b0d 60%)}
+.tgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:48px;align-items:center}
+.thanks h2{font-size:clamp(40px,6vw,84px);font-weight:600;line-height:1.05;max-width:none}
+.thanks h2 .r{color:var(--acc)}
+.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--soft);font-size:14px}
+.foot .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:900px){
+ .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .lgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ovgrid,.atop,.hgrid,.agrid,.tgrid,.panel{grid-template-columns:minmax(0,1fr)}
+ .htrack{flex-direction:column}.panel{width:100%}
+ .nav nav a:nth-child(n+4){display:none}
+ .hero .title{justify-content:flex-start;padding-top:16vh;background:radial-gradient(ellipse 80% 40% at 50% 28%,#000000b3,transparent 75%)}
+}
+@media(max-width:600px){
+ .cards,.lgrid,.stats,.res{grid-template-columns:minmax(0,1fr)}
+ .track{grid-template-columns:minmax(0,1fr);padding-top:0;padding-left:40px;gap:26px}
+ .track::before,.fill,.lane{left:10px;right:auto;top:0;bottom:0;width:4px;height:auto;border:0;background:#100d0f}
+ .stop{opacity:1}.stop .pin{left:-40px;top:4px}.mbike{display:none}
+ .crow{grid-template-columns:44px minmax(0,1fr)}.crow p{grid-column:2}
+ .lk{grid-template-columns:minmax(0,1fr)}.lk .a{display:none}.lk .v{padding:0 4px 12px}
+ .facts div{grid-template-columns:minmax(0,1fr);gap:2px}
+ .nav nav{display:none}.shots{height:300px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><div><p class="lt">Starting the ride</p><p class="ln" id="ln">0%</p><div class="lb"><i id="lb"></i></div></div></div>
+<div class="bar" id="bar"></div>
+<header class="nav"><b>Smritee <i>×</i> Pathao</b>
+<nav id="menu"><a href="#about">Pathao</a><a href="#overview">Overview</a><a href="#work">Work</a><a href="#spot">Spotlight</a><a href="#learn">Learnings</a><a href="#achieve">Achievements</a></nav></header>
+
+<section class="hero" id="top">
+<div class="cam" id="cam"><svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-label="Animated night skyline of Kathmandu with the Himalaya, a stupa, pagoda temples and houses with blinking windows, and a Pathao rider on the road">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07070b"/><stop offset=".7" stop-color="#151118"/><stop offset="1" stop-color="#2a1216"/></linearGradient>
+<radialGradient id="mglow"><stop offset="0" stop-color="#fff3df" stop-opacity=".55"/><stop offset=".4" stop-color="#ffd9b0" stop-opacity=".18"/><stop offset="1" stop-color="#ffd9b0" stop-opacity="0"/></radialGradient>
+<radialGradient id="lglow"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".8"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></radialGradient>
+<radialGradient id="rglow"><stop offset="0" stop-color="#c1121f" stop-opacity=".7"/><stop offset="1" stop-color="#c1121f" stop-opacity="0"/></radialGradient>
+<linearGradient id="beamg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff4d8" stop-opacity=".6"/><stop offset="1" stop-color="#fff4d8" stop-opacity="0"/></linearGradient>
+<linearGradient id="roadg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#191618"/><stop offset="1" stop-color="#07050a"/></linearGradient>
+<linearGradient id="snow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6dcd2"/><stop offset="1" stop-color="#464345"/></linearGradient>
+<clipPath id="moonclip"><rect x="1240" y="90" width="80" height="160"/></clipPath>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<g id="stars"></g>
+<g id="moon">
+ <circle class="glow" cx="1240" cy="170" r="190" fill="url(#mglow)"/>
+ <circle cx="1240" cy="170" r="58" fill="#2a1f33" opacity=".5"/>
+ <g clip-path="url(#moonclip)"><circle cx="1240" cy="170" r="58" fill="#f6eee6"/><circle cx="1262" cy="150" r="9" fill="#e6d9cb"/><circle cx="1275" cy="190" r="12" fill="#e6d9cb"/><circle cx="1252" cy="205" r="5" fill="#e6d9cb"/></g>
+</g>
+<g class="birds" id="birds"><g transform="translate(0 210)"><path class="flap" d="M0 0 q8 -8 16 0 q8 -8 16 0" stroke="#06080a" stroke-width="3" fill="none"/></g><g transform="translate(40 230)"><path class="flap" d="M0 0 q6 -6 12 0 q6 -6 12 0" stroke="#06080a" stroke-width="3" fill="none" style="animation-delay:.2s"/></g><g transform="translate(-30 240)"><path class="flap" d="M0 0 q6 -6 12 0 q6 -6 12 0" stroke="#06080a" stroke-width="3" fill="none" style="animation-delay:.35s"/></g></g>
+<g id="far">
+ <path d="M0 560 L120 470 L190 520 L300 400 L380 470 L470 420 L560 500 L700 380 L800 460 L900 410 L1020 490 L1120 400 L1230 470 L1340 420 L1460 500 L1600 440 V700 H0Z" fill="#1d1a1c"/>
+ <path d="M300 400 L330 430 L312 428 L298 446 L280 425 Z M700 380 L736 418 L712 414 L700 430 L684 412 Z M1120 400 L1150 432 L1130 428 L1118 444 L1100 426 Z M470 420 L494 444 L470 442 L458 452 Z" fill="url(#snow)" opacity=".8"/>
+ <path d="M0 620 Q200 560 380 600 T760 585 T1140 565 T1600 595 V900 H0Z" fill="#191618"/>
+</g>
+<g id="mid"><g id="midL"><g id="midA"></g><use href="#midA" x="1600"/></g></g>
+<g id="near"><g id="nearL"><g id="nearA"></g><use href="#nearA" x="1600"/></g></g>
+<rect y="740" width="1600" height="160" fill="url(#roadg)"/>
+<rect y="736" width="1600" height="6" fill="#262427"/><rect y="742" width="1600" height="3" fill="#00000066"/>
+<path class="roadln" d="M0 838 H1700" stroke="#e9dccf" stroke-width="5" stroke-dasharray="60 50" opacity=".45"/>
+<g id="lampsL"><g id="lamps"></g><use href="#lamps" x="1600"/></g>
+<g id="rider" transform="translate(700 728)">
+ <path class="beam" d="M150 54 L760 -10 L760 140 Z" fill="url(#beamg)"/>
+ <ellipse cx="60" cy="130" rx="120" ry="10" fill="#000" opacity=".55"/>
+ <circle class="puff" cx="-40" cy="96" r="8" fill="#827f81" style="--dl:0s"/><circle class="puff" cx="-40" cy="96" r="8" fill="#827f81" style="--dl:.4s"/><circle class="puff" cx="-40" cy="96" r="8" fill="#827f81" style="--dl:.8s"/>
+ <g class="wheelL"><g class="spin"><circle cx="10" cy="100" r="28" fill="#0e0b0d" stroke="#403d3f" stroke-width="8"/><path d="M10 74 V126 M-16 100 H36 M-8 82 L28 118 M28 82 L-8 118" stroke="#5a5759" stroke-width="2"/><circle cx="10" cy="100" r="5" fill="#928f91"/></g></g>
+ <g class="wheelR"><g class="spin"><circle cx="130" cy="100" r="28" fill="#0e0b0d" stroke="#403d3f" stroke-width="8"/><path d="M130 74 V126 M104 100 H156 M112 82 L148 118 M148 82 L112 118" stroke="#5a5759" stroke-width="2"/><circle cx="130" cy="100" r="5" fill="#928f91"/></g></g>
+ <g class="bob">
+  <path d="M10 100 L50 62 H110 L130 100" fill="none" stroke="#5a5759" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M-20 92 H40" stroke="#5a5060" stroke-width="7" stroke-linecap="round"/>
+  <path d="M40 62 Q70 38 112 54 L120 72 H46Z" fill="#c1121f"/><path d="M52 52 Q74 42 100 48" stroke="#f0626b" stroke-width="3" fill="none"/>
+  <path d="M110 56 L138 40" stroke="#5a5759" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="146" cy="56" r="9" fill="#fff4d8"/><circle cx="146" cy="56" r="20" fill="url(#lglow)"/>
+  <rect x="-34" y="0" width="56" height="50" rx="6" fill="#c1121f"/><rect x="-34" y="0" width="56" height="11" rx="4" fill="#8e0d17"/><circle cx="-6" cy="30" r="9" fill="none" stroke="#fff" stroke-width="3"/>
+  <path d="M58 58 L74 10 L96 16 L92 58Z" fill="#242123"/>
+  <path d="M84 24 L126 46" stroke="#242123" stroke-width="12" stroke-linecap="round"/>
+  <path d="M70 58 L100 82 L92 98" stroke="#1b181a" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <g id="helmet"><circle cx="86" cy="-2" r="22" fill="#c1121f"/><path d="M90 -10 a16 14 0 0 1 18 10 h-14z" fill="#171416"/><path d="M68 -14 a22 22 0 0 1 22 -10" stroke="#f0626b" stroke-width="4" fill="none"/></g>
+ </g>
+</g>
+</svg></div>
+<div class="vig"></div><div class="flare" id="flare"></div><div class="streak" id="streak"></div>
+<div class="title" id="htitle">
+<h1 id="h1"><span class="ln">My Internship</span><span class="ln r">J<span id="o">o</span>urney</span></h1>
+<p class="meta"><strong>Smritee Timalsina</strong> · BBIS, KUSOM<br>Digital Marketing Intern, Pathao Nepal · 7 Sep – 9 Dec 2026<br>Supervisor: Mr. Muluk Limbu</p>
+</div>
+<div class="hint">Scroll to fly in<i></i></div>
+<div class="redout" id="redout"></div>
+<div class="grain"></div><div class="lbx t" id="lbt"></div><div class="lbx b" id="lbb"></div>
+</section>
+
+<section class="band about" id="about">
+<div class="wrap">
+<div class="atop">
+<div>
+<p class="kick">The organization</p>
+<h2 class="split">About Pathao</h2>
+<p class="lede">Nepal’s everyday super app. It started with bike rides and now covers rides, food, parcel, market, home services and helicopters.</p>
+<div class="statline"><p class="big" data-count="200000" data-suffix="+">200,000+</p><p>people connected as bike riders, taxi captains and delivery partners</p></div>
+</div>
+<div><div class="photo reveal" style="aspect-ratio:3/2"><img src="img/office.jpg" alt="Pathao Nepal office building in Kathmandu"></div><p class="cap">Pathao Nepal office. Photo © onlinekhabar.com</p></div>
+</div>
+<div class="road" id="road">
+<div class="track" id="track"><div class="fill" id="fill"></div>
+<svg class="mbike" id="mbike" viewBox="0 0 120 80" aria-hidden="true">
+ <circle cx="22" cy="60" r="15" fill="#1d1b1b" stroke="#f5f2ef" stroke-width="3"/><g class="spin"><path d="M22 47 V73 M9 60 H35" stroke="#f5f2ef" stroke-width="1.5"/></g>
+ <circle cx="96" cy="60" r="15" fill="#1d1b1b" stroke="#f5f2ef" stroke-width="3"/><g class="spin"><path d="M96 47 V73 M83 60 H109" stroke="#f5f2ef" stroke-width="1.5"/></g>
+ <path d="M22 60 L42 40 H76 L96 60" fill="none" stroke="#8a8484" stroke-width="5" stroke-linejoin="round"/>
+ <path d="M8 54 H34" stroke="#5a5555" stroke-width="4" stroke-linecap="round"/>
+ <path d="M38 40 Q56 26 80 36 L84 46 H44Z" fill="#c1121f"/><path d="M46 38 Q58 31 74 34" stroke="#f0626b" stroke-width="2" fill="none"/>
+ <path d="M80 36 L90 24 M86 22 H96" stroke="#8a8484" stroke-width="4" stroke-linecap="round"/>
+ <circle cx="98" cy="38" r="5" fill="#fff4d8"/><path d="M103 38 L120 32 L120 44Z" fill="#fff4d8" opacity=".7"/>
+ <rect x="0" y="10" width="30" height="28" rx="4" fill="#c1121f"/><rect x="0" y="10" width="30" height="7" rx="3" fill="#8e0d17"/><circle cx="15" cy="27" r="5" fill="none" stroke="#fff" stroke-width="2"/>
+ <path d="M50 40 L58 12 L70 14 L68 40Z" fill="#3a3636"/><path d="M64 18 L84 30" stroke="#3a3636" stroke-width="7" stroke-linecap="round"/>
+ <circle cx="62" cy="6" r="11" fill="#c1121f"/><path d="M64 2 a8 7 0 0 1 9 5 h-7z" fill="#1d1b1b"/>
+</svg>
+</div>
+</div>
+</div>
+</section>
+
+<div class="marq"><div class="in"><span>Content <b>✦</b> Meta Ads <b>✦</b> Campaigns <b>✦</b> Reporting <b>✦</b> Teamwork <b>✦</b> Kathmandu <b>✦</b> </span><span>Content <b>✦</b> Meta Ads <b>✦</b> Campaigns <b>✦</b> Reporting <b>✦</b> Teamwork <b>✦</b> Kathmandu <b>✦</b> </span></div></div>
+
+<section class="band" id="overview">
+<div class="wrap">
+<p class="kick">Internship overview</p>
+<h2 class="split">Understanding the business behind the brand</h2>
+<div class="ovgrid">
+<div>
+<dl class="facts">
+<div><dt>Organization</dt><dd>Pathao Nepal</dd></div>
+<div><dt>Department</dt><dd>Marketing</dd></div>
+<div><dt>Position</dt><dd>Digital Marketing Intern</dd></div>
+<div><dt>Duration</dt><dd>7 September – 9 December 2026 (about 3 months)</dd></div>
+<div><dt>Area of work</dt><dd>Digital Marketing, Content Creation and Performance Marketing</dd></div>
+<div><dt>Supervisor</dt><dd>Mr. Muluk Limbu</dd></div>
+<div><dt>Institution</dt><dd>Kathmandu University School of Management (KUSOM)</dd></div>
+</dl>
+<p class="lede">My internship showed me how marketing strategies are planned, executed and evaluated in a fast-paced, technology-driven organization.</p>
+</div>
+<div class="stackph">
+<span class="tagdot">Marketing team</span>
+<div class="photo a reveal par" data-speed="-40"><img src="img/colleagues1.jpg" alt="Smritee with a colleague at the Pathao office"></div>
+<div class="photo b reveal par" data-speed="50"><img src="img/workplace.jpg" alt="The Pathao marketing office workspace"></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="band" id="work" style="padding-top:0">
+<div class="wrap">
+<p class="kick">Experience</p>
+<h2 class="split">What I worked on</h2>
+<p class="lede">Contributing to real marketing activities and campaigns.</p>
+<div class="cards" id="cards"></div>
+<div class="stats">
+<div class="stat"><p class="big" data-count="310">310</p><p>ads in the Meta account in one month (24 Oct – 22 Nov 2026)</p></div>
+<div class="stat"><p class="big" data-count="1.7" data-dec="1" data-suffix="M+">1.7M+</p><p>views across 14 Dashain-season Instagram posts</p></div>
+<div class="stat"><p class="big" data-count="5">5</p><p>platforms per ad: Facebook, Instagram, Messenger, WhatsApp, Threads</p></div>
+</div>
+</div>
+</section>
+
+<section class="band spot" id="spot">
+<div class="wrap">
+<div class="shead">
+<div><p class="kick">Project spotlight</p><h2 class="split">0% Commission Subscription Campaign</h2></div>
+<div class="steps" id="steps"><button data-i="0" class="on">Goal</button><button data-i="1">My role</button><button data-i="2">Result</button></div>
+</div>
+<div class="prog"><i id="prog"></i></div>
+<div class="hwrap"><div class="htrack" id="htrack">
+<article class="panel">
+<div><p class="lab">Goal</p><h3>Make riders aware of the 0% Commission Subscription Package</h3><p class="tx">Bike and taxi riders can subscribe to a package and ride without paying commission per trip. The campaign’s job was to explain this and get riders to activate it.</p></div>
+<svg class="mg" viewBox="0 0 400 380" aria-label="Animated phone showing a 0% commission notification with coins dropping into a rider’s wallet">
+ <rect x="110" y="20" width="180" height="340" rx="28" fill="#0e0b0d" stroke="#312e30" stroke-width="6"/>
+ <rect x="124" y="44" width="152" height="292" rx="14" fill="#191618"/>
+ <circle class="ring" cx="200" cy="140" r="46" fill="none" stroke="#c1121f" stroke-width="3"/>
+ <g class="pulse"><circle cx="200" cy="140" r="46" fill="#c1121f"/></g>
+ <text x="200" y="152" text-anchor="middle" font-family="Unbounded,Arial Black,sans-serif" font-weight="900" font-size="34" fill="#fff">0%</text><text x="200" y="200" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="14" fill="#bdb7b3">commission</text>
+ <rect x="138" y="210" width="124" height="16" rx="8" fill="#312e30"/><rect x="150" y="236" width="100" height="12" rx="6" fill="#262325"/>
+ <rect x="140" y="272" width="120" height="40" rx="20" fill="#c1121f"/>
+ <g class="coin" style="--dl:0s"><circle cx="60" cy="80" r="16" fill="#e9b949"/><circle cx="60" cy="80" r="10" fill="none" stroke="#b78a22" stroke-width="3"/></g>
+ <g class="coin" style="--dl:.8s"><circle cx="340" cy="60" r="16" fill="#e9b949"/><circle cx="340" cy="60" r="10" fill="none" stroke="#b78a22" stroke-width="3"/></g>
+ <g class="coin" style="--dl:1.6s"><circle cx="70" cy="40" r="12" fill="#e9b949"/></g>
+ <path d="M30 300 h70 v50 h-70z" fill="#2a0a0d"/><path d="M30 300 h70 l-10 -14 h-50z" fill="#3a0f14"/>
+ <path d="M300 300 h70 v50 h-70z" fill="#2a0a0d"/><path d="M300 300 h70 l-10 -14 h-50z" fill="#3a0f14"/>
+</svg>
+</article>
+<article class="panel">
+<div><p class="lab">My role</p><h3>From script to screen to report</h3>
+<ul class="roles">
+<li><svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/></svg><span>Scripts and content for rider testimonial and how-to video ads, including a step-by-step guide to 0% commission</span></li>
+<li><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="11" rx="2"/><path d="M16 11l5-3v9l-5-3"/></svg><span>Coordinated shoots and creatives with the content and design teams</span></li>
+<li><svg viewBox="0 0 24 24"><path d="M4 20V10m6 10V4m6 16v-7m4 7H2"/></svg><span>Monitored delivery, reach and cost in Meta Ads Manager</span></li>
+</ul></div>
+<div class="photo reveal" style="aspect-ratio:4/5;max-height:420px"><img src="img/colleagues1.jpg" alt="Smritee at work in the Pathao marketing office"></div>
+</article>
+<article class="panel">
+<div><p class="lab">Result · 24 Oct – 22 Nov 2026</p><h3>Over 12 million people reached by the top six ads</h3>
+<div class="res">
+<div><p class="big" data-count="12" data-suffix="M+">12M+</p><p>combined reach, top 6 ads</p></div>
+<div><p class="big" data-count="2.4" data-dec="1" data-suffix="M">2.4M</p><p>best single ad’s reach</p></div>
+<div><p class="big">$0.09–0.13</p><p>per 1,000 people reached</p></div>
+</div>
+<p class="tx">Ads ran on Facebook, Instagram, Messenger, WhatsApp and Threads, with new versions launched on 28 Oct and 19 Nov 2026.</p></div>
+<div class="shots"><div class="shot s1"><img src="img/meta.png" alt="Meta Ads Manager showing six active subscription ads with reach between 1.67M and 2.4M"></div><div class="shot s2"><img src="img/adslib.png" alt="Meta Ad Library showing live Pathao 0% commission subscription ads"></div></div>
+</article>
+</div></div>
+</div>
+</section>
+
+<section class="band" id="learn">
+<div class="wrap">
+<p class="kick">Learning</p>
+<h2 class="split">From learning concepts to applying them</h2>
+<p class="lede">My biggest shift during the internship.</p>
+<div class="lgrid" id="lgrid"></div>
+<p class="quote" id="quote">Marketing is not just about creating content.</p>
+<p class="qsub">It is about understanding the audience, communicating value and measuring the impact of every activity.</p>
+</div>
+</section>
+
+<section class="band" id="honest" style="padding-top:0">
+<div class="wrap">
+<p class="kick">Organizational reflection</p>
+<h2 class="split">An honest view of Pathao</h2>
+<div class="hgrid">
+<div class="pan good"><svg class="deco" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="24" fill="none" stroke="#c1121f" stroke-width="3"/><path class="pulse" d="M16 28l8 8 15-17" fill="none" stroke="#c1121f" stroke-width="4" stroke-linecap="round"/></svg><h3>What worked well</h3><ul>
+<li>Exposure to real marketing campaigns</li><li>Opportunities to work with different marketing functions</li><li>Practical experience with Meta Ads</li><li>Support and guidance from team members</li><li>Participation in content shoots and campaign activities</li><li>Understanding a fast-paced business environment</li></ul></div>
+<div class="pan better"><svg class="deco" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="24" fill="none" stroke="#f0626b" stroke-width="3"/><path class="pulse" d="M27 14v16M27 38v2" stroke="#f0626b" stroke-width="4" stroke-linecap="round"/></svg><h3>What could be better</h3><ul><li>Clearer written briefs when tasks are assigned</li><li>Regular feedback check-ins on intern performance</li></ul></div>
+</div>
+</div>
+</section>
+
+<section class="band" id="challenges" style="padding-top:0">
+<div class="wrap">
+<p class="kick">Challenges</p>
+<h2 class="split">Learning through real workplace experiences</h2>
+<div class="clist" id="clist"></div>
+</div>
+</section>
+
+<div class="marq"><div class="in rev"><span>BBIS <b>✦</b> Marketing <b>✦</b> Analytics <b>✦</b> Communication <b>✦</b> Projects <b>✦</b> Systems <b>✦</b> </span><span>BBIS <b>✦</b> Marketing <b>✦</b> Analytics <b>✦</b> Communication <b>✦</b> Projects <b>✦</b> Systems <b>✦</b> </span></div></div>
+
+<section class="band" id="bbis" style="background:#120f11">
+<div class="wrap">
+<p class="kick">Academic linkage</p>
+<h2 class="split">Turning BBIS learning into workplace capabilities</h2>
+<div class="links" id="links"></div>
+</div>
+</section>
+
+<section class="band" id="achieve">
+<div class="wrap">
+<p class="kick">Career development</p>
+<h2 class="split">Achievements and future pathways</h2>
+<div class="agrid">
+<div>
+<ul class="alist">
+<li><span>Hands-on with Meta Ads Manager on an account running <b>310 ads</b> in one month</span></li>
+<li><span>Supported a subscription campaign whose top 6 ads reached <b>12M+ people</b></span></li>
+<li><span>Worked on Dashain content that drew <b>1.7M+ Instagram views</b> across 14 posts</span></li>
+<li><span>Took part in content shoots and campaign coordination</span></li>
+<li><span>Improved professional communication and teamwork</span></li>
+</ul>
+<div class="pills"><span>Digital Marketing</span><span>Performance Marketing</span><span>Brand Management</span><span>Marketing Analytics</span><span>Campaign Management</span></div>
+<p class="lede">My next step is to strengthen my analytical, creative and strategic marketing skills while exploring opportunities in the digital business industry.</p>
+</div>
+<div class="phone" id="phone"><img src="img/insta.jpg" alt="Pathao Instagram grid of Dashain-season reels with view counts"></div>
+</div>
+</div>
+</section>
+
+<div class="flash" id="flash"></div>
+<section class="thanks" id="thanks">
+<div class="wrap tgrid" style="width:100%">
+<div><h2 id="ty"><span class="wd"><span>Thank</span></span> <span class="wd"><span class="r">you</span></span></h2><p class="lede" style="font-size:clamp(19px,1.8vw,24px)">Questions and discussion</p>
+<p style="margin-top:32px;font-weight:700">Smritee Timalsina</p><p style="color:var(--soft)">BBIS, KUSOM · Digital Marketing Intern, Pathao Nepal</p></div>
+<div class="photo reveal" style="aspect-ratio:3/4;max-width:400px"><img src="img/colleagues.jpg" alt="Smritee with Pathao colleagues on the office rooftop"></div>
+</div>
+</section>
+<footer class="foot"><div class="wrap"><span>Internship report · Kathmandu University School of Management · 2026</span><a href="#top">Back to top</a></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+document.documentElement.classList.remove('nojs');
+$$('#h1 .ln').forEach(l=>{const o=l.querySelector('#o');l.innerHTML=[...l.textContent].map(c=>c===' '?' ':`<span class="ch">${c}</span>`).join('');if(o){const cs=l.querySelectorAll('.ch');cs[1].id='o'}});
+/* ---------- content ---------- */
+const ic={pen:'<path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/>',meta:'<path d="M3 13c3-9 6-9 9 0s6 9 9 0"/>',rocket:'<path d="M12 3c4 3 5 8 3 13H9C7 11 8 6 12 3z"/><circle cx="12" cy="9" r="2"/><path d="M9 16l-3 4m9-4l3 4"/>',team:'<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 20c0-3 2-5 5-5s5 2 5 5m0-5c1-1 2-1 3-1 3 0 5 2 5 6"/>',chart:'<path d="M4 20V10m6 10V4m6 16v-7"/><path d="M2 20h20"/>'};
+const work=[['pen','Content creation','Captions, reels, scripts and promotional content, including festive Dashain content.'],['meta','Meta advertising','Campaign setup, audience targeting, Lead Ads, awareness campaigns and ad monitoring.'],['rocket','Campaign execution','Subscription packages, taxi branding, Pathao Parcel and promotional campaigns.'],['team','Team coordination','Worked with content, design and other teams on shoots, creatives and campaigns.'],['chart','Performance reporting','Tracked spend, impressions, reach, clicks, leads and cost per result.']];
+$('#cards').innerHTML=work.map((w,i)=>`<div class="cw"><div class="card tilt"><div class="ic" style="--dl:${i*.3}s"><svg viewBox="0 0 24 24">${ic[w[0]]}</svg></div><h3>${w[1]}</h3><p>${w[2]}</p><span class="n">0${i+1} / 05</span><i class="bar2"></i></div></div>`).join('');
+const learn=[['Digital marketing','Campaign objectives, audience targeting, advertising platforms and digital promotions.'],['Performance marketing','Reading impressions, reach, clicks, leads, spend and cost per result.'],['Content and brand communication','How storytelling drives engagement. One Dashain reel alone reached 1.5M views.'],['Professional collaboration','Communication, coordination, teamwork and time management.']];
+$('#lgrid').innerHTML=learn.map(l=>`<div class="cw"><div class="card tilt" style="min-height:0"><h3>${l[0]}</h3><p>${l[1]}</p><i class="bar2"></i></div></div>`).join('');
+const chi=['<path d="M4 20V10m6 10V4m6 16v-7"/><path d="M2 20h20"/>','<circle cx="12" cy="10" r="6"/><path d="M9 20h6M10 16h4"/>','<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>','<path d="M4 6l8-3 8 3-8 3z"/><path d="M8 8v5c2 2 6 2 8 0V8"/>'];
+const ch=[['Understanding performance marketing','Ad metrics and campaign results took extra learning and practice to understand.'],['Turning ideas into content','Creating engaging content while keeping Pathao’s brand voice and campaign goals.'],['Adapting to workplace expectations','Changing priorities, deadlines and several campaigns at once required flexibility.'],['Connecting academics with practice','Some tasks needed tools and practical knowledge beyond the classroom.']];
+$('#clist').innerHTML=ch.map((c,i)=>`<div class="crow"><svg viewBox="0 0 24 24" aria-hidden="true">${chi[i]}</svg><h3>${c[0]}</h3><p>${c[1]}</p></div>`).join('');
+const bb=[['Marketing Management','Campaign planning and brand promotion'],['Business Communication','Team coordination and professional communication'],['Information Systems','Digital advertising platforms and business tools'],['Business Analytics','Campaign performance and data interpretation'],['Project Management','Campaign timelines and task coordination']];
+$('#links').innerHTML=bb.map(b=>`<div class="lk"><div class="k">${b[0]}</div><div class="a"></div><div class="v">${b[1]}</div></div>`).join('');
+const stops=[['2018','Launched in Nepal with bike ride-sharing'],['2019','Added car and taxi rides'],['2020','Launched Pathao Food'],['2024','Pathao Parcel went nationwide'],['2026','Pathao Heli: helicopters in the app']];
+$('#track').insertAdjacentHTML('beforeend',stops.map(s=>`<div class="stop"><span class="pin"></span><strong>${s[0]}</strong><p>${s[1]}</p></div>`).join(''));
+const q=$('#quote');q.innerHTML='Marketing is not just about'.split(' ').map(w=>`<span class="w">${w}</span>`).join('')+'creating content.'.split(' ').map(w=>`<span class="w" style="color:var(--acc)">${w}</span>`).join('');
+$$('h2.split').forEach(h=>{h.innerHTML=h.textContent.split(' ').map(w=>`<span class="wd"><span>${w}</span></span>`).join(' ')});
+/* ---------- the living city ---------- */
+let sd=11;const rnd=()=>(sd=sd*16807%2147483647)/2147483647,pick=a=>a[Math.floor(rnd()*a.length)];
+const NS='http://www.w3.org/2000/svg';
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const stars=$('#stars');
+for(let i=0;i<140;i++){const c=el('circle',{cx:rnd()*1600,cy:rnd()*460,r:(rnd()*1.7+.3).toFixed(1),fill:'#f6eee6',opacity:.6},stars);if(rnd()<.45){c.setAttribute('class','tw');c.style.cssText=`--d:${(2+rnd()*4).toFixed(1)}s;--dl:${(rnd()*4).toFixed(1)}s`}}
+const warm=['#ffd59a','#ffc070','#ffe1b8','#ffd59a','#9fd3ff','#ff9a8a'];
+function win(g,x,y,w,h){const lit=rnd()<.42;el('rect',{x:x-1.5,y:y-1.5,width:w+3,height:h+3,fill:'#0f0c0e'},g);
+ const r=el('rect',{x,y,width:w,height:h,fill:lit?pick(warm):'#201d1f'},g);
+ if(lit){if(rnd()<.3){r.setAttribute('class','bl');r.style.cssText=`--d:${(2.5+rnd()*6).toFixed(1)}s;--dl:${(rnd()*6).toFixed(1)}s`}
+  if(rnd()<.35)el('rect',{x,y:y+h*.55,width:w,height:h*.45,fill:'#00000040'},g);}
+ if(rnd()<.25)el('path',{d:`M${x+w/2} ${y}V${y+h}`,stroke:'#0f0c0e','stroke-width':1.5},g);}
+function house(g,x,base,w,h,pal,near){const col=pick(pal),dark='#00000033';
+ el('rect',{x,y:base-h,width:w,height:h,fill:col},g);
+ el('rect',{x:x+w*.8,y:base-h,width:w*.2,height:h,fill:dark},g);
+ el('rect',{x:x-3,y:base-h-6,width:w+6,height:6,fill:'#ffffff10'},g);
+ const fl=near?38:30;let fi=0;
+ for(let fy=base-h+14;fy<base-fl+6;fy+=fl,fi++){
+  el('rect',{x,y:fy+fl-8,width:w,height:2,fill:'#00000040'},g);
+  const ww=near?12:9,wh=near?16:12,gap=near?22:17;
+  for(let wx=x+8;wx<x+w*.78-ww;wx+=gap)win(g,wx,fy,ww,wh);
+  if(fi>0&&rnd()<.22){const by=fy+fl-10;el('rect',{x:x+4,y:by,width:w*.6,height:3,fill:'#0f0c0e'},g);for(let px=x+6;px<x+w*.6;px+=6)el('rect',{x:px,y:by-9,width:1.5,height:9,fill:'#0f0c0e'},g);el('rect',{x:x+4,y:by-10,width:w*.6,height:2,fill:'#0f0c0e'},g)}
+ }
+ const top=base-h,k=rnd();
+ if(k<.3){el('rect',{x:x+w*.55,y:top-22,width:18,height:16,fill:'#0f0c0e'},g);el('ellipse',{cx:x+w*.55+9,cy:top-22,rx:9,ry:3,fill:'#1a1719'},g);el('rect',{x:x+w*.55+2,y:top-6,width:2,height:6,fill:'#0f0c0e'},g);el('rect',{x:x+w*.55+14,y:top-6,width:2,height:6,fill:'#0f0c0e'},g)}
+ else if(k<.5){el('rect',{x:x+6,y:top-20,width:w*.35,height:20,fill:col},g);el('rect',{x:x+6,y:top-22,width:w*.35+4,height:3,fill:'#0f0c0e'},g);el('rect',{x:x+12,y:top-14,width:7,height:14,fill:'#201d1f'},g)}
+ else if(k<.65){el('path',{d:`M${x-4} ${top} L${x+w/2} ${top-22} L${x+w+4} ${top}Z`,fill:'#171416'},g)}
+ else if(k<.8){el('path',{d:`M${x+w*.3} ${top} V${top-34} M${x+w*.3-8} ${top-28} H${x+w*.3+8} M${x+w*.3-5} ${top-20} H${x+w*.3+5}`,stroke:'#0f0c0e','stroke-width':2},g)}
+ else{el('circle',{cx:x+w*.6,cy:top-9,r:8,fill:'#242123'},g);el('path',{d:`M${x+w*.6} ${top-1}V${top}`,stroke:'#0f0c0e','stroke-width':3},g)}
+ if(rnd()<.35){const ly=top-4;let p=`M${x+w*.1} ${ly-8}`;el('path',{d:`M${x+w*.1} ${ly-8} Q${x+w*.45} ${ly} ${x+w*.8} ${ly-8}`,stroke:'#0f0c0e','stroke-width':1,fill:'none'},g);for(let i=0;i<4;i++)el('rect',{x:x+w*(.18+i*.14),y:ly-6,width:6,height:8,fill:pick(['#c1121f','#3d6fb3','#e9b949','#5a9a6a','#f6eee6']),opacity:.7},g)}
+ if(near&&rnd()<.55){const sw=Math.min(w-12,40+rnd()*40),sc=pick(['#c1121f','#e9b949','#3d9adf','#c1121f','#5ac08a']);const s=el('g',{class:'sign'},g);s.style.setProperty('--dl',(rnd()*5).toFixed(1)+'s');
+  el('rect',{x:x+6,y:base-58,width:sw,height:16,rx:3,fill:sc},s);el('rect',{x:x+6-8,y:base-66,width:sw+16,height:32,rx:10,fill:sc,opacity:.18},s);
+  el('rect',{x:x+6,y:base-36,width:sw,height:36,fill:'#0d0910'},g);el('rect',{x:x+10,y:base-30,width:sw-8,height:30,fill:pick(['#ffcf8a','#ffe1b8']),opacity:.35},g)}
+}
+function pagoda(g,cx,base,s){const P=(d,f)=>el('path',{d,fill:f},g);
+ for(let i=0;i<3;i++)el('rect',{x:cx-60*s+i*10*s,y:base-(i+1)*8*s,width:(120-i*20)*s,height:8*s,fill:'#232022'},g);
+ const b0=base-24*s;el('rect',{x:cx-28*s,y:b0-40*s,width:56*s,height:40*s,fill:'#2d2a2c'},g);
+ for(let i=0;i<3;i++){const y=b0-40*s-i*34*s,hw=(70-i*16)*s;
+  P(`M${cx-hw} ${y} Q${cx-hw+8*s} ${y-6*s} ${cx-hw*.55} ${y-20*s} H${cx+hw*.55} Q${cx+hw-8*s} ${y-6*s} ${cx+hw} ${y} Z`,'#1c191b');
+  P(`M${cx-hw} ${y} L${cx-hw-6*s} ${y-6*s}`,'none');
+  if(i<2)el('rect',{x:cx-(22-i*5)*s,y:y-34*s,width:(44-i*10)*s,height:14*s,fill:'#2d2a2c'},g);
+  for(let bx=-hw+10*s;bx<hw-6*s;bx+=14*s)el('circle',{cx:cx+bx,cy:y+3*s,r:1.6*s,fill:'#d9a441',opacity:.8},g)}
+ const ty=b0-40*s-2*34*s-20*s;el('path',{d:`M${cx-5*s} ${ty} L${cx} ${ty-26*s} L${cx+5*s} ${ty}Z`,fill:'#d9a441'},g);
+ el('rect',{x:cx-8*s,y:b0-26*s,width:16*s,height:26*s,fill:'#ffc070',opacity:.75},g).setAttribute('class','bl');
+}
+function stupa(g,cx,base){
+ el('rect',{x:cx-110,y:base-14,width:220,height:14,fill:'#292628'},g);el('rect',{x:cx-90,y:base-26,width:180,height:12,fill:'#302d2f'},g);
+ el('path',{d:`M${cx-80} ${base-26} Q${cx-80} ${base-110} ${cx} ${base-114} Q${cx+80} ${base-110} ${cx+80} ${base-26}Z`,fill:'#434042'},g);
+ el('path',{d:`M${cx+20} ${base-112} Q${cx+80} ${base-100} ${cx+80} ${base-26} H${cx+40} Q${cx+50} ${base-90} ${cx+20} ${base-112}Z`,fill:'#00000030'},g);
+ el('rect',{x:cx-22,y:base-144,width:44,height:30,fill:'#514e50'},g);
+ el('path',{d:`M${cx-15} ${base-130} q6 -5 11 0 M${cx+4} ${base-130} q6 -5 11 0`,stroke:'#171416','stroke-width':3,fill:'none'},g);
+ el('path',{d:`M${cx-2} ${base-124} q2 5 -2 7`,stroke:'#171416','stroke-width':2,fill:'none'},g);
+ for(let i=0;i<9;i++)el('rect',{x:cx-16+i*1.5,y:base-150-i*7,width:32-i*3,height:6,fill:i%2?'#c9973a':'#b8862e'},g);
+ el('path',{d:`M${cx-12} ${base-212} H${cx+12} L${cx} ${base-232}Z`,fill:'#e0ac44'},g);
+ const fl=el('g',{class:'flags'},g);
+ [[-1,1],[1,1]].forEach(([d])=>{const x2=cx+d*220,y2=base-10;el('path',{d:`M${cx} ${base-210} Q${cx+d*110} ${base-110} ${x2} ${y2}`,stroke:'#0f0c0e','stroke-width':1,fill:'none'},fl);
+  for(let t=.08;t<.95;t+=.07){const x=(1-t)**2*cx+2*(1-t)*t*(cx+d*110)+t*t*x2,y=(1-t)**2*(base-210)+2*(1-t)*t*(base-110)+t*t*y2;el('rect',{x:x-3,y,width:7,height:9,fill:['#3d6fb3','#f6eee6','#c1121f','#5a9a6a','#e9b949'][Math.round(t*14)%5],opacity:.8},fl)}});
+}
+const mid=$('#midA'),near=$('#nearA');
+const palM=['#24222a','#29262b','#201f25','#2d2a2f','#262429','#2b2729','#23232a'],palN=['#151417','#18161a','#131316','#1b181b','#141316','#1a1719'];
+stupa(mid,660,664);pagoda(mid,940,664,1);pagoda(mid,300,664,.8);
+for(let x=0;x<1560;){const w=50+rnd()*70,h=50+rnd()*120;if(!(x>520&&x<800)&&!(x>860&&x<1020)&&!(x>230&&x<370))house(mid,x,664,w,h,palM,false);x+=w+2+rnd()*6}
+for(let x=0;x<1600;){const w=Math.min(70+rnd()*90,1600-x);if(w<40)break;const h=80+rnd()*200;house(near,x,740,w,h,palN,true);x+=w+4+rnd()*10}
+const lamps=$('#lamps');
+for(let x=60;x<1600;x+=320){el('rect',{x,y:616,width:5,height:124,fill:'#151214'},lamps);el('path',{d:`M${x+2} 618 Q${x+20} 608 ${x+30} 620`,stroke:'#151214','stroke-width':5,fill:'none'},lamps);el('circle',{cx:x+30,cy:624,r:6,fill:'#ffe1b8'},lamps);const gl=el('circle',{cx:x+30,cy:636,r:60,fill:'url(#lglow)',class:'lamp'},lamps);gl.style.setProperty('--dl',(rnd()*3).toFixed(1)+'s')}
+/* ---------- nav highlight (works without libraries) ---------- */
+const links=$$('#menu a'),map={};links.forEach(a=>map[a.getAttribute('href').slice(1)]=a);
+const sectionOf={about:'about',overview:'overview',work:'work',spot:'spot',learn:'learn',honest:'learn',challenges:'learn',bbis:'achieve',achieve:'achieve'};
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.remove('on'));const k=sectionOf[e.target.id];if(k&&map[k])map[k].classList.add('on')}})},{rootMargin:'-45% 0px -50% 0px'});
+$$('section[id]').forEach(s=>io.observe(s));
+const fmt=(e,v)=>{const d=+(e.dataset.dec||0);e.textContent=(d?v.toFixed(d):Math.round(v).toLocaleString('en-US'))+(e.dataset.suffix||'')};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(window.gsap&&window.ScrollTrigger&&!reduce){
+ gsap.registerPlugin(ScrollTrigger);
+ /* smooth, inertial scroll */
+ let lenis=null;
+ if(window.Lenis){lenis=new Lenis({lerp:.09,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
+ links.concat($$('a[href="#top"]')).forEach(a=>a.addEventListener('click',e=>{const t=$(a.getAttribute('href'));if(t&&lenis){e.preventDefault();lenis.scrollTo(t,{offset:-60,duration:1.6})}}));
+ gsap.to('#bar',{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.2}});
+ /* scroll speed drives wheels, road and marquees */
+ const wheels=$$('.spin'),roadln=$('.roadln');let boost=0;let loops=[];
+ ScrollTrigger.create({start:0,end:'max',onUpdate:s=>{boost=Math.min(Math.abs(s.getVelocity())/400,6)}});
+ const marqs=$$('.marq .in').map(m=>({m,tw:gsap.to(m,{xPercent:m.classList.contains('rev')?0:-50,startAt:{xPercent:m.classList.contains('rev')?-50:0},duration:28,ease:'none',repeat:-1})}));
+ gsap.ticker.add(()=>{boost*=.92;const r=1+boost;wheels.forEach(w=>w.style.animationDuration=(.5/r)+'s');roadln.style.animationDuration=(.6/r)+'s';marqs.forEach(o=>o.tw.timeScale(r));loops.forEach(l=>l.timeScale(1+boost*3))});
+ /* mouse parallax on the city */
+ const layers=[['#stars',6],['#moon',10],['#far',14],['#mid',24],['#near',40]].map(([s,k])=>({x:gsap.quickTo(s,'x',{duration:.8,ease:'power3'}),k}));
+ $('.hero').addEventListener('pointermove',e=>{const r=e.currentTarget.getBoundingClientRect(),nx=(e.clientX-r.left)/r.width-.5;layers.forEach(l=>l.x(-nx*l.k))});
+ /* city layers stream past at different speeds: parallax of a moving ride */
+ loops=[gsap.to('#midL',{x:-1600,duration:110,ease:'none',repeat:-1}),gsap.to('#nearL',{x:-1600,duration:42,ease:'none',repeat:-1}),gsap.to('#lampsL',{x:-1600,duration:9,ease:'none',repeat:-1})];
+ /* opening: loader, letterbox bars close in, the city rises out of focus, the title is set letter by letter */
+ if(lenis)lenis.stop();
+ const lo={v:0},intro=gsap.timeline({onComplete:()=>{lenis&&lenis.start();$('#loader').remove()}});
+ intro.to(lo,{v:100,duration:1.4,ease:'power2.inOut',onUpdate:()=>{$('#ln').textContent=Math.round(lo.v)+'%';gsap.set('#lb',{scaleX:lo.v/100})}})
+  .to('#loader',{yPercent:-100,duration:.9,ease:'power4.inOut'})
+  .to('#lbt,#lbb',{scaleY:1,duration:1.2,ease:'power3.inOut'},'<.2')
+  .from('#far path',{y:120,opacity:0,duration:1.8,ease:'power3.out'},'<')
+  .from('#midL',{y:200,duration:1.8,ease:'power3.out'},'<.15')
+  .from('#nearL',{y:260,duration:1.8,ease:'power3.out'},'<.15')
+  .from('#lampsL,.roadln',{opacity:0,duration:.8},'<.6')
+  .from('#h1 .ch',{y:60,opacity:0,rotateX:-80,filter:'blur(14px)',stagger:{each:.05,from:'center'},duration:1.1,ease:'power3.out'},'<-.4')
+  .from('.hero .meta',{y:20,opacity:0,filter:'blur(6px)',duration:.9},'>-.5')
+  .from('.nav,.hint',{opacity:0,duration:.8},'<');
+ /* every text: headings rise word by word, everything else fades up line by line, all tied to the scroll */
+ $$('h2.split').forEach(h=>gsap.from(h.querySelectorAll('.wd>span'),{y:34,opacity:0,filter:'blur(8px)',stagger:.06,ease:'power3.out',scrollTrigger:{trigger:h,start:'top 98%',end:'top 80%',scrub:.5}}));
+ const txt=$$('.band .kick,.band .lede,.band h3,.band p,.band li,.band dt,.band dd,.qsub,.marq,.foot span,.foot a,.thanks p').filter(e=>!e.closest('.panel,.card,.wd,.quote,.statline .big')&&!e.matches('.big,.quote'));
+ txt.forEach(e=>gsap.from(e,{y:22,opacity:0,filter:'blur(4px)',ease:'power2.out',scrollTrigger:{trigger:e,start:'top 100%',end:'top 88%',scrub:.4}}));
+ $$('.big').forEach(e=>gsap.from(e,{y:30,opacity:0,scale:.9,transformOrigin:'0 100%',scrollTrigger:{trigger:e,start:'top 96%',end:'top 78%',scrub:.5}}));
+ $$('.reveal').forEach(p=>{gsap.fromTo(p,{clipPath:'inset(12% 12% 12% 12% round 22px)'},{clipPath:'inset(0% 0% 0% 0% round 22px)',ease:'none',scrollTrigger:{trigger:p,start:'top 95%',end:'top 45%',scrub:.6}});gsap.fromTo(p.querySelector('img'),{scale:1.3},{scale:1,ease:'none',scrollTrigger:{trigger:p,start:'top bottom',end:'bottom top',scrub:true}})});
+ $$('.par').forEach(e=>gsap.to(e,{y:+e.dataset.speed,ease:'none',scrollTrigger:{trigger:e,start:'top bottom',end:'bottom top',scrub:true}}));
+ gsap.from('.tagdot',{scale:0,rotate:-20,ease:'back.out(2)',duration:.7,scrollTrigger:{trigger:'.stackph',start:'top 70%',toggleActions:'play none none reverse'}});
+ /* cards: each one flips in like a dealt card, then its text and bar follow */
+ const deal=(sel,trig)=>{const cw=$$(sel+' .cw');const tl=gsap.timeline({scrollTrigger:{trigger:trig,start:'top 95%',end:'top 55%',scrub:.6}});
+  cw.forEach((w,i)=>{const c=w.firstElementChild;
+   tl.fromTo(w,{y:140,rotateY:-75,rotateZ:-8,opacity:0},{y:0,rotateY:0,rotateZ:0,opacity:1,ease:'power3.out',duration:1},i*.35)
+     .from(c.querySelectorAll('.ic,h3,p,.n'),{y:18,opacity:0,stagger:.12,duration:.5},i*.35+.45)
+     .fromTo(c.querySelector('.bar2'),{scaleX:0},{scaleX:1,duration:.6},i*.35+.6)});};
+ deal('#cards','#cards');deal('#lgrid','#lgrid');
+ /* 3D tilt follows the pointer */
+ $$('.tilt').forEach(c=>{const rx=gsap.quickTo(c,'rotationX',{duration:.5}),ry=gsap.quickTo(c,'rotationY',{duration:.5}),zz=gsap.quickTo(c,'z',{duration:.5});
+  c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();ry(((e.clientX-r.left)/r.width-.5)*18);rx(-((e.clientY-r.top)/r.height-.5)*18);zz(30)});
+  c.addEventListener('pointerleave',()=>{rx(0);ry(0);zz(0)})});
+ /* counters */
+ $$('[data-count]:not(.panel [data-count])').forEach(e=>{const end=+e.dataset.count,o={v:0};ScrollTrigger.create({trigger:e,start:'top 92%',onEnter:()=>gsap.to(o,{v:end,duration:1.6,ease:'power2.out',onUpdate:()=>fmt(e,o.v)}),onLeaveBack:()=>{o.v=0;fmt(e,0)}})});
+ gsap.fromTo('#quote .w',{opacity:.12,y:14},{opacity:1,y:0,stagger:.1,ease:'none',scrollTrigger:{trigger:'#quote',start:'top 85%',end:'bottom 45%',scrub:true}});
+ gsap.from('.pan',{y:70,opacity:0,stagger:.15,scrollTrigger:{trigger:'.hgrid',start:'top 95%',end:'top 60%',scrub:.6}});
+ $$('.crow svg').forEach(s=>gsap.from(s,{scale:0,rotate:-90,scrollTrigger:{trigger:s,start:'top 95%',end:'top 75%',scrub:.6}}));
+ $$('.lk').forEach(l=>{gsap.timeline({scrollTrigger:{trigger:l,start:'top 95%',end:'top 65%',scrub:.6}}).from(l.querySelector('.k'),{x:-40,opacity:0}).from(l.querySelector('.a'),{scaleX:0}).from(l.querySelector('.v'),{x:30,opacity:0})});
+ gsap.from('.pills span',{scale:.5,opacity:0,stagger:.07,ease:'back.out(2)',duration:.5,scrollTrigger:{trigger:'.pills',start:'top 90%'}});
+ gsap.fromTo('#phone',{y:120,rotate:8},{y:-40,rotate:-3,ease:'none',scrollTrigger:{trigger:'#achieve',start:'top bottom',end:'bottom top',scrub:true}});
+ gsap.timeline({scrollTrigger:{trigger:'#thanks',start:'top 70%',end:'top 10%',scrub:true}}).to('#flash',{opacity:.7,duration:.4}).to('#flash',{opacity:0,duration:.6});
+ gsap.from('#ty .wd>span',{y:50,opacity:0,filter:'blur(8px)',stagger:.12,scrollTrigger:{trigger:'#thanks',start:'top 75%',end:'top 25%',scrub:.6}});
+ const mm=gsap.matchMedia();
+ mm.add('(min-width: 900px)',()=>{
+  /* hero: focus pull, fly through the o of Journey, the rider sweeps in with a headlight flare, then into the helmet */
+  const oOrigin=()=>{const h=$('#h1'),o=$('#o');gsap.set(h,{clearProps:'transform'});const a=h.getBoundingClientRect(),b=o.getBoundingClientRect();return (b.left+b.width/2-a.left)+'px '+(b.top+b.height*.6-a.top)+'px'};
+  gsap.set('#rider',{x:-700});
+  const h=gsap.timeline({scrollTrigger:{trigger:'.hero',start:'top top',end:'+=380%',pin:true,scrub:1,invalidateOnRefresh:true}});
+  h.fromTo('#cam',{filter:'blur(12px) brightness(.45)',scale:1.18},{filter:'blur(0px) brightness(1)',scale:1,ease:'power2.inOut',duration:1.6},.4)
+   .to('.hero .meta,.hint',{opacity:0,y:-20,filter:'blur(6px)',duration:.35},.55)
+   .fromTo('#h1',{scale:1,transformOrigin:oOrigin},{scale:60,ease:'power3.in',duration:1.3},0.7)
+   .to('#h1',{opacity:0,duration:.25},1.75)
+   .to('#stars',{y:-60,ease:'none',duration:3.6},0).to('#moon',{y:-140,ease:'none',duration:3.6},0)
+   .to('#far',{y:70,ease:'none',duration:3.6},0).to('#birds',{y:-80,ease:'none',duration:3.6},0)
+   .to('#mid',{y:30,scale:1.06,svgOrigin:'800 700',ease:'none',duration:3.6},0).to('#near',{y:12,scale:1.14,svgOrigin:'800 740',ease:'none',duration:3.6},0)
+   .to('#rider',{x:700,ease:'power3.out',duration:1.1},1.9)
+   .fromTo('#flare',{opacity:0,scale:.4},{opacity:.95,scale:1.1,duration:.25,ease:'power2.out'},2.65).to('#flare',{opacity:0,scale:1.4,duration:.45},2.9)
+   .fromTo('#streak',{opacity:0,scaleX:.2},{opacity:1,scaleX:1,duration:.2},2.65).to('#streak',{opacity:0,duration:.4},2.85)
+   .to('#cam',{x:6,y:-4,duration:.05,repeat:5,yoyo:true,ease:'none'},2.65)
+   .to('#rider',{scale:16,svgOrigin:'786 726',ease:'power2.in',duration:1.1},3.35)
+   .to('#lbt,#lbb',{scaleY:0,duration:.5},3.9)
+   .to('#redout',{opacity:1,duration:.4},4.05);
+  /* about: the bike rides the timeline and lights each milestone */
+  const track=$('#track'),bike=$('#mbike'),fill=$('#fill'),st=$$('.stop');
+  const pos=()=>st.map(s=>s.offsetLeft+12);
+  gsap.set(fill,{scaleX:0});
+  const rt=ScrollTrigger.create({trigger:'#about',start:'bottom bottom',end:'+=140%',pin:true,scrub:true,onUpdate:s=>{
+   const P=pos(),x=P[0]+(P[P.length-1]-P[0])*s.progress;
+   gsap.set(bike,{x:x-60,y:Math.sin(s.progress*40)*2});gsap.set(fill,{scaleX:x/track.offsetWidth});
+   st.forEach((e,i)=>e.classList.toggle('on',x>=P[i]-4))}});
+  /* spotlight: panels slide sideways as you scroll */
+  const ht=$('#htrack'),btns=$$('#steps button');
+  const dist=()=>ht.scrollWidth-ht.parentElement.offsetWidth;
+  const sp=gsap.to(ht,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'#spot',start:'top top',end:()=>'+='+dist()*1.4,pin:true,scrub:.8,invalidateOnRefresh:true,
+   onUpdate:s=>{gsap.set('#prog',{scaleX:s.progress});const k=Math.min(2,Math.round(s.progress*2));btns.forEach((b,i)=>b.classList.toggle('on',i===k))}}});
+  btns.forEach(b=>b.addEventListener('click',()=>{const t=sp.scrollTrigger,y=t.start+(t.end-t.start)*(+b.dataset.i/2);lenis?lenis.scrollTo(y,{duration:1.4}):window.scrollTo({top:y,behavior:'smooth'})}));
+  $$('.panel').forEach((p,i)=>{const t=p.querySelectorAll('.lab,h3,.tx,.roles li,.res>div');if(i)gsap.from(t,{y:40,opacity:0,stagger:.08,scrollTrigger:{trigger:p,containerAnimation:sp,start:'left 95%',end:'left 65%',scrub:.5}});else gsap.from(t,{y:40,opacity:0,stagger:.08,scrollTrigger:{trigger:'#spot',start:'top 80%',end:'top 20%',scrub:.6}})});
+  gsap.from('.shot.s1',{x:200,rotate:10,opacity:0,scrollTrigger:{trigger:'.shots',containerAnimation:sp,start:'left 95%',end:'left 55%',scrub:.6}});
+  gsap.from('.shot.s2',{y:200,rotate:-12,opacity:0,scrollTrigger:{trigger:'.shots',containerAnimation:sp,start:'left 85%',end:'left 45%',scrub:.6}});
+  $$('.panel [data-count]').forEach(e=>{const end=+e.dataset.count,o={v:0};fmt(e,0);ScrollTrigger.create({trigger:e,containerAnimation:sp,start:'left 80%',onEnter:()=>gsap.to(o,{v:end,duration:1.6,ease:'power2.out',onUpdate:()=>fmt(e,o.v)})})});
+  return()=>{st.forEach(e=>e.classList.add('on'))};
+ });
+ mm.add('(max-width: 899px)',()=>{$$('.stop').forEach(e=>e.classList.add('on'))});
+ ScrollTrigger.sort();ScrollTrigger.refresh();
+ document.fonts&&document.fonts.ready.then(()=>ScrollTrigger.refresh());
+ window.addEventListener('load',()=>{ScrollTrigger.sort();ScrollTrigger.refresh()});
+}else{$$('.stop').forEach(e=>e.classList.add('on'));const l=$('#loader');l&&l.remove()}
+}
+</script>
+</body>
+</html>
